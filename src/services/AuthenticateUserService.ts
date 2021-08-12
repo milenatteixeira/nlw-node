@@ -20,14 +20,15 @@ class AuthenticateUserService {
 
         const passwordMatch = await compare(password, user.password);
 
-        if (!password) {
+        if (!passwordMatch) {
             throw new Error("Email/Password incorrect.");
         }
-
+        
         const token = sign(
             {
-                email: user.email,
-            }, "7fab6738eba29b1083e4dc1f23a51ed5",
+                email: user.email
+            },
+            "7fab6738eba29b1083e4dc1f23a51ed5",
             {
                 subject: user.id,
                 expiresIn: "1d",
